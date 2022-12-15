@@ -56,7 +56,7 @@ class ProjectCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         25.0,
                       ),
-                      color: kMidPriorityColor,
+                      color: kLightColor,
                     ),
                     child: const Text(
                       '3 Left',
@@ -79,7 +79,7 @@ class ProjectCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         25.0,
                       ),
-                      color: kMidPriorityColor,
+                      color: kLightColor,
                     ),
                     child: const Text(
                       '2 Done',
