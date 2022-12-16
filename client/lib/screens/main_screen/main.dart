@@ -116,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
           elevation: 0.0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
+              Radius.circular(15.0),
             ),
           ),
           child: const FaIcon(

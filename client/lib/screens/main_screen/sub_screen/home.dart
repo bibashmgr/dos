@@ -30,8 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Projects',
                   style: TextStyle(
                     fontSize: 20.0,
@@ -43,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   'See all',
                   style: TextStyle(
                     fontSize: 14.0,
-                    fontWeight: FontWeight.w400,
-                    color: kGrayColor,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade400,
                   ),
                 )
               ],
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Container(
                     width: 165,
-                    height: 165,
+                    height: 175,
                     margin: const EdgeInsets.only(
                       right: 5.0,
                     ),
@@ -71,24 +71,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderType: BorderType.RRect,
                       radius: const Radius.circular(25),
                       dashPattern: const [10, 10],
-                      color: kGrayColor,
+                      color: Colors.grey.shade500,
                       strokeWidth: 2,
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             FaIcon(
                               FontAwesomeIcons.plus,
-                              color: kGrayColor,
+                              color: Colors.grey.shade500,
                               size: 16.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5.0,
                             ),
                             Text(
                               'Add',
                               style: TextStyle(
-                                color: kGrayColor,
+                                color: Colors.grey.shade500,
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                               ),

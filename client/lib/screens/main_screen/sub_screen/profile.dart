@@ -13,6 +13,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return const Center(
       child: Text('This is Profile'),
     );
-    ;
   }
 }

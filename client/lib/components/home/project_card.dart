@@ -19,7 +19,7 @@ class ProjectCard extends StatelessWidget {
         horizontal: 5.0,
       ),
       decoration: BoxDecoration(
-        color: kHighPriorityColor,
+        color: kBlueColor,
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Column(

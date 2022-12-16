@@ -27,7 +27,7 @@ class _TaskCardState extends State<TaskCard> {
         color: kLightColor,
         border: const Border(
           left: BorderSide(
-            color: kHighPriorityColor,
+            color: kBlueColor,
             width: 10.0,
           ),
         ),
@@ -69,7 +69,7 @@ class _TaskCardState extends State<TaskCard> {
           ),
           Container(
             decoration: BoxDecoration(
-              color: isChecked ? kGrayColor : Colors.grey.shade300,
+              color: isChecked ? Colors.grey.shade400 : Colors.grey.shade200,
               borderRadius: const BorderRadius.all(
                 Radius.circular(25),
               ),
