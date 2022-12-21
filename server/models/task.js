@@ -14,6 +14,9 @@ const taskSchema = mongoose.Schema({
   userId: {
     type: String,
   },
+  priority: {
+    type: String,
+  },
   startTime: {
     type: Date,
   },
@@ -21,6 +24,10 @@ const taskSchema = mongoose.Schema({
     type: Date,
   },
   isDone: {
+    type: Boolean,
+    default: false,
+  },
+  isNotify: {
     type: Boolean,
     default: false,
   },
