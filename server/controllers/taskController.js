@@ -18,6 +18,7 @@ const getTasks = async (req, res) => {
 
 const getTask = async (req, res) => {
   try {
+    const taskInfo = await task.find();
   } catch (error) {}
 };
 
