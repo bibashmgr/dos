@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const indexRoutes = require('./routes/index.js');
 const authRoutes = require('./routes/auth.js');
 const userRoutes = require('./routes/user.js');
+const projectRoutes = require('./routes/project.js');
 const taskRoutes = require('./routes/task.js');
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(
 app.use('/', indexRoutes);
 app.use('/api/auth/', authRoutes);
 app.use('/api/users/', userRoutes);
+app.use('/api/projects/', projectRoutes);
 app.use('/api/tasks/', taskRoutes);
 
 // creating httpServer
