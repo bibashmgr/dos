@@ -17,10 +17,10 @@ const taskSchema = mongoose.Schema({
   priority: {
     type: String,
   },
-  startTime: {
+  issueDate: {
     type: Date,
   },
-  endTime: {
+  dueDate: {
     type: Date,
   },
   isDone: {
@@ -29,7 +29,6 @@ const taskSchema = mongoose.Schema({
   },
   isNotify: {
     type: Boolean,
-    default: false,
   },
 });
 

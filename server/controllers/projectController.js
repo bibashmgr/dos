@@ -19,7 +19,7 @@ const createProject = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -38,20 +38,27 @@ const getProjects = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
   }
 };
 
 const getProject = async (req, res) => {
   try {
-    const isExist = await project.findById(req.params.id);
+    const isProjectExist = await project.findById(req.params.id);
 
-    if (isExist) {
-      res.status(200).json({
-        data: isExist,
-        message: 'Fetch ProjectInfo',
-      });
+    if (isProjectExist) {
+      if (isProjectExist.userId === req.userId) {
+        res.status(200).json({
+          data: isProjectExist,
+          message: 'Fetch ProjectInfo',
+        });
+      } else {
+        res.status(403).json({
+          data: null,
+          message: 'Access Denied',
+        });
+      }
     } else {
       res.status(404).json({
         data: null,
@@ -61,25 +68,32 @@ const getProject = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
   }
 };
 
 const updateProject = async (req, res) => {
   try {
-    const isExist = await project.findById(req.params.id);
+    const isProjectExist = await project.findById(req.params.id);
 
-    if (isExist) {
-      const updatedProjectInfo = await project.findByIdAndUpdate(
-        isExist._id,
-        req.body,
-        { new: true }
-      );
-      res.status(200).json({
-        data: updatedProjectInfo,
-        message: 'Update ProjectInfo',
-      });
+    if (isProjectExist) {
+      if (isProjectExist.userId === req.userId) {
+        const updatedProjectInfo = await project.findByIdAndUpdate(
+          isProjectExist._id,
+          req.body,
+          { new: true }
+        );
+        res.status(200).json({
+          data: updatedProjectInfo,
+          message: 'Update ProjectInfo',
+        });
+      } else {
+        res.status(403).json({
+          data: null,
+          message: 'Access Denied',
+        });
+      }
     } else {
       res.status(404).json({
         data: null,
@@ -89,21 +103,30 @@ const updateProject = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
   }
 };
 
 const deleteProject = async (req, res) => {
   try {
-    const isExist = await project.findById(req.params.id);
+    const isProjectExist = await project.findById(req.params.id);
 
-    if (isExist) {
-      const deletedProjectInfo = await project.findByIdAndRemove(isExist._id);
-      res.status(200).json({
-        data: null,
-        message: 'Delete ProjectInfo',
-      });
+    if (isProjectExist) {
+      if (isProjectExist.userId === req.userId) {
+        const deletedProjectInfo = await project.findByIdAndRemove(
+          isProjectExist._id
+        );
+        res.status(200).json({
+          data: null,
+          message: 'Delete ProjectInfo',
+        });
+      } else {
+        res.status(403).json({
+          data: null,
+          message: 'Access Denied',
+        });
+      }
     } else {
       res.status(404).json({
         data: null,
@@ -113,7 +136,7 @@ const deleteProject = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
   }
 };

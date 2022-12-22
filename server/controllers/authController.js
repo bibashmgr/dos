@@ -12,8 +12,8 @@ const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const registerUser = async (req, res) => {
   try {
-    const isExist = await user.findOne({ email: req.body.email });
-    if (!isExist) {
+    const isUserExist = await user.findOne({ email: req.body.email });
+    if (!isUserExist) {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -43,11 +43,14 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const isExist = await user.findOne({ email: req.body.email });
-    if (isExist) {
-      const isMatch = await bcrypt.compare(req.body.password, isExist.password);
-      if (isMatch) {
-        const accessToken = jwt.sign({ id: isExist._id }, ACCESS_TOKEN);
+    const isUserExist = await user.findOne({ email: req.body.email });
+    if (isUserExist) {
+      const isPasswordMatch = await bcrypt.compare(
+        req.body.password,
+        isUserExist.password
+      );
+      if (isPasswordMatch) {
+        const accessToken = jwt.sign({ id: isUserExist._id }, ACCESS_TOKEN);
         res.status(200).json({ accessToken });
       } else {
         res.status(403).json({

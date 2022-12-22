@@ -1,4 +1,4 @@
-# DOs (Task Management App):
+# DOs:
 
 DOs is a tool that allows everyday users to manage their to-do lists in the most efficient manner. This project is created using Flutter, Nodejs & MongoDB. 
 
