@@ -106,6 +106,10 @@ const createTask = async (req, res) => {
       });
       const savedTask = await newTask.save();
 
+      const updatedProject = await isProjectExist.updateOne({
+        $push: { tasks: savedTask._id },
+      });
+
       res.status(201).json({
         data: savedTask,
         message: 'Create New Task',
@@ -130,11 +134,19 @@ const updateTask = async (req, res) => {
 
     if (isTaskExist) {
       if (isTaskExist.userId === req.userId) {
+        const projectInfo = await project.findById(isTaskExist.projectId);
         const updatedTaskInfo = await task.findByIdAndUpdate(
           isTaskExist._id,
           req.body,
           { new: true }
         );
+        const pulledProject = await projectInfo.updateOne({
+          $pull: { tasks: isTaskExist._id },
+        });
+        const pushedProject = await projectInfo.updateOne({
+          $push: { tasks: updatedTaskInfo._id },
+        });
+
         res.status(200).json({
           data: updatedTaskInfo,
           message: 'Update TaskInfo',
