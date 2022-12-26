@@ -2,6 +2,7 @@
 const task = require('../models/task.js');
 const project = require('../models/project.js');
 
+// get all the tasks
 const getTasks = async (req, res) => {
   try {
     const tasks = await task.find({
@@ -19,6 +20,7 @@ const getTasks = async (req, res) => {
   }
 };
 
+// get all the tasks related to project
 const getProjectTask = async (req, res) => {
   try {
     const isProjectExist = await project.findById(req.params.id);
@@ -43,11 +45,18 @@ const getProjectTask = async (req, res) => {
   }
 };
 
+// get all tasks of present day
 const getTodayTask = async (req, res) => {
   try {
-    const todayTasks = await task.find({
+    const tasks = await task.find({
       userId: req.userId,
     });
+    const currentDate = new Date();
+
+    const todayTasks = tasks.filter(
+      (t, i) =>
+        t.issueDate.toLocaleDateString() === currentDate.toLocaleDateString()
+    );
     res.status(200).json({
       data: todayTasks,
       message: 'Fetch Today Tasks',
@@ -60,6 +69,7 @@ const getTodayTask = async (req, res) => {
   }
 };
 
+// get an existing task's info
 const getTask = async (req, res) => {
   try {
     const isTaskExist = await task.findById(req.params.id);
@@ -90,6 +100,7 @@ const getTask = async (req, res) => {
   }
 };
 
+// create a new task
 const createTask = async (req, res) => {
   try {
     const isProjectExist = await project.findById(req.body.projectId);
@@ -99,16 +110,12 @@ const createTask = async (req, res) => {
         desc: req.body.desc,
         projectId: req.body.projectId,
         userId: req.userId,
-        priority: req.body.priority,
         issueDate: req.body.issueDate,
-        dueDate: req.body.dueDate,
+        issueTime: req.body.issueTime,
+        dueTime: req.body.dueTime,
         isNotify: req.body.isNotify,
       });
       const savedTask = await newTask.save();
-
-      const updatedProject = await isProjectExist.updateOne({
-        $push: { tasks: savedTask._id },
-      });
 
       res.status(201).json({
         data: savedTask,
@@ -128,29 +135,41 @@ const createTask = async (req, res) => {
   }
 };
 
+// update existing task
 const updateTask = async (req, res) => {
   try {
     const isTaskExist = await task.findById(req.params.id);
 
     if (isTaskExist) {
       if (isTaskExist.userId === req.userId) {
-        const projectInfo = await project.findById(isTaskExist.projectId);
-        const updatedTaskInfo = await task.findByIdAndUpdate(
-          isTaskExist._id,
-          req.body,
-          { new: true }
-        );
-        const pulledProject = await projectInfo.updateOne({
-          $pull: { tasks: isTaskExist._id },
-        });
-        const pushedProject = await projectInfo.updateOne({
-          $push: { tasks: updatedTaskInfo._id },
-        });
+        const isProjectExist = await project.findById(req.body.projectId);
 
-        res.status(200).json({
-          data: updatedTaskInfo,
-          message: 'Update TaskInfo',
-        });
+        if (isProjectExist) {
+          const updatedTaskInfo = await task.findByIdAndUpdate(
+            isTaskExist._id,
+            {
+              name: req.body.name,
+              desc: req.body.desc,
+              projectId: req.body.projectId,
+              userId: req.userId,
+              issueDate: req.body.issueDate,
+              issueTime: req.body.issueTime,
+              dueTime: req.body.dueTime,
+              isNotify: req.body.isNotify,
+            },
+            { new: true }
+          );
+
+          res.status(200).json({
+            data: updatedTaskInfo,
+            message: 'Update TaskInfo',
+          });
+        } else {
+          res.status(400).json({
+            data: null,
+            message: 'Invalid ProjectId',
+          });
+        }
       } else {
         res.status(403).json({
           data: null,
@@ -171,6 +190,7 @@ const updateTask = async (req, res) => {
   }
 };
 
+// delete an existing task
 const deleteTask = async (req, res) => {
   try {
     const isTaskExist = await task.findById(req.params.id);

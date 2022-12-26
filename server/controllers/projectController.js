@@ -9,6 +9,7 @@ const createProject = async (req, res) => {
       name: req.body.name,
       icon: req.body.icon,
       desc: req.body.desc,
+      color: req.body.color,
     });
     const savedProject = await newProject.save();
 
@@ -43,6 +44,7 @@ const getProjects = async (req, res) => {
   }
 };
 
+// get info about a project
 const getProject = async (req, res) => {
   try {
     const isProjectExist = await project.findById(req.params.id);
@@ -73,6 +75,7 @@ const getProject = async (req, res) => {
   }
 };
 
+// update an existing project
 const updateProject = async (req, res) => {
   try {
     const isProjectExist = await project.findById(req.params.id);
@@ -108,6 +111,7 @@ const updateProject = async (req, res) => {
   }
 };
 
+// delete an existing project
 const deleteProject = async (req, res) => {
   try {
     const isProjectExist = await project.findById(req.params.id);
