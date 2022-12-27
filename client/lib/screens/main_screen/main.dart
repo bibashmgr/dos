@@ -7,6 +7,7 @@ import 'package:client/utils/constants.dart';
 // screens
 import 'package:client/screens/main_screen/sub_screen/home.dart';
 import 'package:client/screens/main_screen/sub_screen/profile.dart';
+import 'package:client/screens/main_screen/sub_screen/create_task.dart';
 
 // icons
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,7 +46,6 @@ class _MainScreenState extends State<MainScreen> {
             fontWeight: FontWeight.w600,
             fontSize: 22.0,
             color: kDarkColor,
-            fontFamily: 'Montserrat',
           ),
         ),
         actions: [
@@ -114,23 +114,16 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () {
             showModalBottomSheet<void>(
               context: context,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20.0),
+                ),
+              ),
               builder: (BuildContext context) {
-                return Container(
-                  height: 200,
-                  color: Colors.amber,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const Text('Modal BottomSheet'),
-                        ElevatedButton(
-                          child: const Text('Close BottomSheet'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    ),
-                  ),
+                return const FractionallySizedBox(
+                  heightFactor: 0.925,
+                  child: CreateTask(),
                 );
               },
             );
