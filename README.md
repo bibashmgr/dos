@@ -7,5 +7,3 @@ DOs is a tool that allows everyday users to manage their to-do lists in the most
 - Can create __Task__, which is a checklist item, where you can set dealine, priority & reminder.
 - Can track the progress.
 - Can notify user about today's tasks.
-
-### Snapshots:
