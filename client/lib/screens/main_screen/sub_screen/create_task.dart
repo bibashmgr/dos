@@ -60,6 +60,7 @@ class _CreateTaskState extends State<CreateTask> {
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
+
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.symmetric(

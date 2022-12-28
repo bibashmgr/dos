@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // screens
 import 'package:client/screens/main_screen/main.dart';
+import 'package:client/screens/main_screen/sub_screen/view_project.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'dos',
-      home: MainScreen(),
+      initialRoute: '/',
+      routes: {
+        ViewProject.routeName: (context) => const ViewProject(),
+      },
+      home: const MainScreen(),
     );
   }
 }
