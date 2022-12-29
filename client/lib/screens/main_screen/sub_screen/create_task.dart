@@ -183,7 +183,7 @@ class _CreateTaskState extends State<CreateTask> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Task Name',
+                    'Name',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -213,7 +213,7 @@ class _CreateTaskState extends State<CreateTask> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Task Description',
+                    'Description',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -356,7 +356,7 @@ class _CreateTaskState extends State<CreateTask> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
