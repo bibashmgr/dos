@@ -23,6 +23,17 @@ class _ViewProjectState extends State<ViewProject> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
 
+  List<String> timeline = [
+    '12:00 am',
+    '03:00 am',
+    '06:00 am',
+    '09:00 am',
+    '12:00 pm',
+    '03:00 pm',
+    '06:00 pm',
+    '09:00 pm',
+  ];
+
   @override
   Widget build(BuildContext context) {
     // final args =
@@ -178,10 +189,11 @@ class _ViewProjectState extends State<ViewProject> {
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount: timeline.length,
                   itemBuilder: (BuildContext context, int index) {
                     return TimelineTile(
-                      isFirst: true,
+                      isFirst: index == 0,
+                      isLast: index == timeline.length - 1,
                       indicatorStyle: const IndicatorStyle(
                         width: 20,
                         indicatorXY: 0,
@@ -190,7 +202,7 @@ class _ViewProjectState extends State<ViewProject> {
                       beforeLineStyle: const LineStyle(
                         color: kUnselectedColor,
                       ),
-                      endChild: const TaskTile(),
+                      endChild: TaskTile(title: timeline[index]),
                     );
                   }),
             ),
@@ -202,7 +214,9 @@ class _ViewProjectState extends State<ViewProject> {
 }
 
 class TaskTile extends StatefulWidget {
-  const TaskTile({Key? key}) : super(key: key);
+  final String title;
+
+  const TaskTile({required this.title, Key? key}) : super(key: key);
 
   @override
   State<TaskTile> createState() => _TaskTileState();
@@ -221,7 +235,7 @@ class _TaskTileState extends State<TaskTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "12:00am",
+            widget.title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 16.0,
