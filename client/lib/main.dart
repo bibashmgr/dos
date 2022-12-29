@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'dos',
       initialRoute: '/',
+      theme: ThemeData(
+        fontFamily: "OpenSans",
+      ),
       routes: {
         ViewProject.routeName: (context) => const ViewProject(),
       },
