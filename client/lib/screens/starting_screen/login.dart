@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // constants
@@ -6,6 +7,9 @@ import 'package:client/utils/constants.dart';
 
 // screens
 import 'package:client/screens/starting_screen/register.dart';
+
+// helpers
+import 'package:client/services/auth_service.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -29,6 +33,19 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
 
+  AuthService authService = AuthService();
+
+  void loginUser() async {
+    await authService.login(
+      '/auth/login',
+      {
+        'email': email,
+        'password': password,
+      },
+      context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +53,10 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: kLightColor,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+          statusBarColor: kLightColor,
+        ),
         iconTheme: const IconThemeData(
           color: kDarkColor,
         ),
@@ -62,7 +83,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const Text(
-                  "Welcome Back!",
+                  "Welcome back!",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 24.0,
@@ -163,9 +184,7 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content:
-                              Text('email: $email & password: $password')));
+                      loginUser();
                     }
                   },
                   style: const ButtonStyle(

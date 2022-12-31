@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 // screens
@@ -6,6 +8,8 @@ import 'package:client/screens/starting_screen/register.dart';
 
 // constants
 import 'package:client/utils/constants.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartingScreen extends StatefulWidget {
   const StartingScreen({Key? key}) : super(key: key);
@@ -15,10 +19,28 @@ class StartingScreen extends StatefulWidget {
 }
 
 class _StartingScreenState extends State<StartingScreen> {
+  void getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('token'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kLightColor,
+      appBar: AppBar(
+          toolbarHeight: 0.0,
+          elevation: 0.0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.light,
+            statusBarColor: kLightColor,
+          )),
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,

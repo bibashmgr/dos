@@ -1,4 +1,6 @@
+import 'package:client/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // constants
@@ -30,6 +32,20 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
 
+  AuthService authService = AuthService();
+
+  void registerUser() async {
+    await authService.register(
+      '/auth/register',
+      {
+        'name': name,
+        'email': email,
+        'password': password,
+      },
+      context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +53,10 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: kLightColor,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+          statusBarColor: kLightColor,
+        ),
         iconTheme: const IconThemeData(
           color: kDarkColor,
         ),
@@ -186,9 +206,7 @@ class _RegisterState extends State<Register> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'name: $name & email: $email & password: $password')));
+                      registerUser();
                     }
                   },
                   style: const ButtonStyle(
