@@ -27,17 +27,20 @@ const registerUser = async (req, res) => {
         data: null,
         message: 'Register new User',
       });
+      console.log('Register new User');
     } else {
       res.status(409).json({
         data: null,
         message: 'Email already taken',
       });
+      console.log('Email already taken');
     }
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
+    console.log(error.message);
   }
 };
 
@@ -51,24 +54,30 @@ const loginUser = async (req, res) => {
       );
       if (isPasswordMatch) {
         const accessToken = jwt.sign({ id: isUserExist._id }, ACCESS_TOKEN);
-        res.status(200).json({ accessToken });
+        res
+          .status(200)
+          .json({ data: accessToken, message: 'Login Successful' });
+        console.log('Login Successful');
       } else {
         res.status(403).json({
           data: null,
           message: 'Invalid Password',
         });
+        console.log('Invalid Password');
       }
     } else {
       res.status(403).json({
         data: null,
         message: 'Invalid Email',
       });
+      console.log('Invalid Email');
     }
   } catch (error) {
     res.status(400).json({
       data: null,
-      message: error,
+      message: error.message,
     });
+    console.log(error.message);
   }
 };
 
