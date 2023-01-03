@@ -1,4 +1,3 @@
-import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,19 +24,10 @@ const List<Widget> projectIcons = <Widget>[
   ),
 ];
 
-List<Widget> projectColors = <Widget>[
-  Container(
-    decoration: const BoxDecoration(
-      color: kRedColor,
-    ),
-  ),
-  Container(
-    color: kOrangeColor,
-  ),
-  Container(
-    color: kBlueColor,
-  ),
-  Container(
-    color: kGreenColor,
-  ),
+const List<String> iconNames = [
+  'person',
+  'suitcase',
+  'dollarsign',
+  'movies',
+  'calender'
 ];

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 // constants
 import 'package:client/utils/constants.dart';
+
+// services
+import 'package:client/services/profile_service.dart';
+
+// providers
+import 'package:client/providers/user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,6 +24,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ChartData('Complete', 20, Colors.green),
     ChartData('Total', 100, Colors.blue),
   ];
+
+  ProfileService profileService = ProfileService();
+
+  void getUserInfo() async {
+    await profileService.getProfile('/users/profile', context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -83,10 +103,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(
               height: 15.0,
             ),
-            const Center(
+            Center(
               child: Text(
-                'Bibash Magar',
-                style: TextStyle(
+                Provider.of<UserProvider>(
+                  context,
+                ).userInfo.name,
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                   color: kDarkColor,
