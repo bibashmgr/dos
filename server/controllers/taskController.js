@@ -107,7 +107,6 @@ const createTask = async (req, res) => {
     if (isProjectExist) {
       const newTask = new task({
         name: req.body.name,
-        desc: req.body.desc,
         projectId: req.body.projectId,
         userId: req.userId,
         issueDate: req.body.issueDate,
@@ -149,7 +148,6 @@ const updateTask = async (req, res) => {
             isTaskExist._id,
             {
               name: req.body.name,
-              desc: req.body.desc,
               projectId: req.body.projectId,
               userId: req.userId,
               issueDate: req.body.issueDate,

@@ -5,10 +5,6 @@ const taskSchema = mongoose.Schema(
     name: {
       type: String,
     },
-    desc: {
-      type: String,
-      default: '',
-    },
     projectId: {
       type: String,
     },
