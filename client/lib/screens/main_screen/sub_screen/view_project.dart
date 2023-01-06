@@ -108,7 +108,7 @@ class _ViewProjectState extends State<ViewProject> {
                   lastDay: DateTime.utc(2030, 1, 1),
                   focusedDay: _focusedDay,
                   calendarFormat: CalendarFormat.week,
-                  rowHeight: 65,
+                  rowHeight: 60,
                   headerStyle: const HeaderStyle(
                     titleCentered: true,
                     formatButtonVisible: false,
@@ -120,11 +120,11 @@ class _ViewProjectState extends State<ViewProject> {
                   daysOfWeekStyle: const DaysOfWeekStyle(
                     weekdayStyle: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                     ),
                     weekendStyle: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                     ),
                   ),
                   calendarStyle: const CalendarStyle(

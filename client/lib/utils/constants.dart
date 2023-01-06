@@ -12,3 +12,6 @@ const kRedColor = Color(0xFFFFC7C7);
 const kOrangeColor = Color(0xFFFFEFD7);
 const kBlueColor = Color(0xFFD2E7FF);
 const kGreenColor = Color(0xFFABF1BC);
+
+// config
+const String kServerBaseURL = 'http://192.168.1.69:9999/api';

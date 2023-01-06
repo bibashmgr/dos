@@ -12,12 +12,14 @@ import 'package:client/screens/main_screen/sub_screen/view_project.dart';
 
 // providers
 import 'package:client/providers/user_provider.dart';
+import 'package:client/providers/project_provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProjectProvider()),
       ],
       child: const MyApp(),
     ),

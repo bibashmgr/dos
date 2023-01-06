@@ -1,3 +1,4 @@
+import 'package:client/providers/project_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,6 +12,7 @@ import 'package:client/screens/main_screen/sub_screen/create_task.dart';
 
 // icons
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -121,9 +123,12 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               builder: (BuildContext context) {
-                return const FractionallySizedBox(
-                  heightFactor: 0.925,
-                  child: CreateTask(),
+                return FractionallySizedBox(
+                  heightFactor: 0.9,
+                  child: CreateTask(
+                    projectList:
+                        Provider.of<ProjectProvider>(context).projectsInfo,
+                  ),
                 );
               },
             );

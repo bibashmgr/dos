@@ -1,4 +1,5 @@
 import 'package:client/helpers/color_convertor.dart';
+import 'package:client/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -26,6 +27,8 @@ class _CreateProjectState extends State<CreateProject> {
   String icon = '';
   String color = '';
 
+  ProjectService projectService = ProjectService();
+
   void createProject() async {
     for (var i = 0; i < _iconSelection.length; i++) {
       if (_iconSelection[i]) {
@@ -37,59 +40,83 @@ class _CreateProjectState extends State<CreateProject> {
     setState(() {
       color = _colorselection.toHex(leadingHashSign: false);
     });
+
+    await projectService.createProject(
+        '/projects/create',
+        {
+          'name': name,
+          'desc': desc,
+          'icon': icon,
+          'color': color,
+        },
+        context);
+
+    closeBottomSheet();
+  }
+
+  void closeBottomSheet() {
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 5.0,
-        vertical: 15.0,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.xmark,
-                  color: kDarkColor,
-                  size: 24.0,
-                ),
-              ),
-              const Text(
-                "Create new project",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22.0,
-                  color: kDarkColor,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const FaIcon(
-                  FontAwesomeIcons.ellipsisVertical,
-                  color: kDarkColor,
-                  size: 22.0,
-                ),
-              ),
-            ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: kLightColor,
+        centerTitle: true,
+        elevation: 0.0,
+        toolbarHeight: 75,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
           ),
-          Expanded(
-            flex: 1,
-            child: SingleChildScrollView(
-              child: Form(
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.xmark,
+            color: kDarkColor,
+            size: 24.0,
+          ),
+        ),
+        title: const Text(
+          "Create new project",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22.0,
+            color: kDarkColor,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const FaIcon(
+              FontAwesomeIcons.ellipsisVertical,
+              color: kDarkColor,
+              size: 22.0,
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: kLightColor,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5.0,
+            vertical: 15.0,
+          ),
+          child: Column(
+            children: [
+              Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 25.0,
-                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Column(
@@ -298,37 +325,41 @@ class _CreateProjectState extends State<CreateProject> {
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: kLightColor,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15.0,
+        ),
+        margin: const EdgeInsets.only(
+          bottom: 15.0,
+        ),
+        width: double.maxFinite,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState?.save();
+              createProject();
+            }
+          },
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll<Color>(
+              kDarkColor,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15.0,
-            ),
-            width: double.maxFinite,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState?.save();
-                  createProject();
-                }
-              },
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                  kDarkColor,
-                ),
-              ),
-              child: const Text(
-                'Create project',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: kLightColor,
-                ),
-              ),
+          child: const Text(
+            'Create project',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
+              color: kLightColor,
             ),
           ),
-        ],
+        ),
       ),
     );
   }

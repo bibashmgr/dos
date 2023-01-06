@@ -14,7 +14,7 @@ const createProject = async (req, res) => {
     const savedProject = await newProject.save();
 
     res.status(201).json({
-      data: savedProject,
+      data: null,
       message: 'Create New Project',
     });
   } catch (error) {
@@ -36,11 +36,13 @@ const getProjects = async (req, res) => {
       data: projects,
       message: 'Fetch All Projects',
     });
+    console.log('Fetch All Projects');
   } catch (error) {
     res.status(400).json({
       data: null,
       message: error.message,
     });
+    console.log(error.message);
   }
 };
 

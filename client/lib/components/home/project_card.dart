@@ -11,7 +11,18 @@ import 'package:client/screens/main_screen/sub_screen/view_project.dart';
 // import 'package:client/arguments/view_project_arguments.dart';
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({Key? key}) : super(key: key);
+  final String id;
+  final String title;
+  final Color color;
+  final IconData icon;
+
+  const ProjectCard({
+    required this.id,
+    required this.title,
+    required this.color,
+    required this.icon,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +44,24 @@ class ProjectCard extends StatelessWidget {
           horizontal: 5.0,
         ),
         decoration: BoxDecoration(
-          color: kBlueColor,
+          color: color,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const FaIcon(
-              FontAwesomeIcons.userLarge,
+            FaIcon(
+              icon,
               color: kLightColor,
               size: 22.0,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Personal',
-                  style: TextStyle(
+                Text(
+                  title,
+                  style: const TextStyle(
                     color: kLightColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w700,
