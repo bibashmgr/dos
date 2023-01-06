@@ -18,7 +18,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 // providers
 import 'package:client/providers/user_provider.dart';
 
-String serverUrl = 'http://192.168.1.65:9999/api';
+// constants
+import 'package:client/utils/constants.dart';
+
+String serverUrl = kServerBaseURL;
 
 class ProfileService {
   Future<dynamic> getProfile(url, context) async {

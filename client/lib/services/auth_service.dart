@@ -12,7 +12,10 @@ import 'package:client/models/response_message.dart';
 // helpers
 import 'package:client/helpers/custom_snackbar.dart';
 
-String serverUrl = 'http://192.168.1.65:9999/api';
+// constants
+import 'package:client/utils/constants.dart';
+
+String serverUrl = kServerBaseURL;
 
 class AuthService {
   Future<dynamic> login(url, body, context) async {
