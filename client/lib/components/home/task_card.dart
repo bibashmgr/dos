@@ -2,7 +2,16 @@ import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class TaskCard extends StatefulWidget {
-  const TaskCard({Key? key}) : super(key: key);
+  final String title;
+  final String subtitle;
+  final bool isDone;
+
+  const TaskCard({
+    required this.title,
+    required this.subtitle,
+    required this.isDone,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -12,9 +21,15 @@ class _TaskCardState extends State<TaskCard> {
   bool isChecked = false;
 
   @override
+  void initState() {
+    super.initState();
+    isChecked = widget.isDone;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.maxFinite,
+      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(
         horizontal: 20.0,
         vertical: 15.0,
@@ -23,11 +38,10 @@ class _TaskCardState extends State<TaskCard> {
         vertical: 7.5,
       ),
       decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(10.0),
         color: kLightColor,
         border: const Border(
           left: BorderSide(
-            color: kBlueColor,
+            color: kRedColor,
             width: 10.0,
           ),
         ),
@@ -43,29 +57,37 @@ class _TaskCardState extends State<TaskCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'Finish Design',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                  color: kDarkColor,
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 1.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                    color: isChecked ? kInactiveColor : kDarkColor,
+                    decoration: isChecked
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    decorationThickness: isChecked ? 5.0 : 0.0,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                'Make the design user-friendly',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: kDarkColor,
+                const SizedBox(
+                  height: 5.0,
                 ),
-              ),
-            ],
+                Text(
+                  widget.subtitle,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
+                    color: isChecked ? kInactiveColor : kDarkColor,
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             decoration: BoxDecoration(

@@ -17,7 +17,6 @@ class Datum {
   Datum({
     required this.id,
     required this.name,
-    required this.desc,
     required this.projectId,
     required this.userId,
     required this.issueDate,
@@ -32,7 +31,6 @@ class Datum {
 
   String id;
   String name;
-  String desc;
   String projectId;
   String userId;
   DateTime issueDate;
@@ -47,7 +45,6 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["_id"],
         name: json["name"],
-        desc: json["desc"],
         projectId: json["projectId"],
         userId: json["userId"],
         issueDate: DateTime.parse(json["issueDate"]),

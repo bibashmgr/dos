@@ -5,10 +5,11 @@ import 'package:table_calendar/table_calendar.dart';
 // utils
 import 'package:client/utils/constants.dart';
 
+// services
+import 'package:client/services/task_service.dart';
+
 // providers
 import 'package:client/providers/project_provider.dart';
-
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class CreateTask extends StatefulWidget {
   final List<ProjectInfo> projectList;
@@ -61,14 +62,28 @@ class _CreateTaskState extends State<CreateTask> {
   }
 
   String name = '';
-  String desc = '';
   String projectId = '';
   bool isNotify = false;
 
+  TaskService taskService = TaskService();
+
   void createTask() async {
-    // ignore: avoid_print
-    print(
-        '$_selectedDay, $name, $desc, $projectId, ${startTime.text}, ${endTime.text}, $isNotify');
+    await taskService.createTask(
+      '/tasks/create',
+      {
+        'name': name,
+        'projectId': projectId,
+        'issueDate': DateTime(
+          _selectedDay.year,
+          _selectedDay.month,
+          _selectedDay.day,
+        ).toString(),
+        'issueTime': startTime.text.toString(),
+        'dueTime': endTime.text.toString(),
+        'isNotify': isNotify.toString(),
+      },
+      context,
+    );
   }
 
   @override
@@ -132,7 +147,7 @@ class _CreateTaskState extends State<CreateTask> {
           color: kLightColor,
           padding: const EdgeInsets.symmetric(
             horizontal: 5.0,
-            vertical: 0.0,
+            vertical: 5.0,
           ),
           child: Form(
             key: _formKey,
@@ -213,7 +228,7 @@ class _CreateTaskState extends State<CreateTask> {
                   },
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -248,46 +263,6 @@ class _CreateTaskState extends State<CreateTask> {
                             ),
                           ),
                           hintText: 'Name',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Description',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: kDarkColor,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 7.5,
-                      ),
-                      TextFormField(
-                        onSaved: (newValue) => setState(() {
-                          desc = newValue!;
-                        }),
-                        validator: ((value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter description';
-                          }
-                          return null;
-                        }),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          hintText: 'Description',
                         ),
                       ),
                     ],
@@ -423,7 +398,7 @@ class _CreateTaskState extends State<CreateTask> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(

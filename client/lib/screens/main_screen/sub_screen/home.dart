@@ -1,3 +1,5 @@
+import 'package:client/providers/task_provider.dart';
+import 'package:client/services/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,20 +34,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ProjectService projectService = ProjectService();
-
-  void getData() async {
-    await projectService.getProjects('/projects', context);
-  }
+  TaskService taskService = TaskService();
 
   @override
   void initState() {
     super.initState();
-    getData();
+    Future.delayed(Duration.zero, () {
+      projectService.getProjects('/projects', context);
+      taskService.getTasks('/tasks', context);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     List projectList = Provider.of<ProjectProvider>(context).projectsInfo;
+    List taskList = Provider.of<TaskProvider>(context).tasksInfo;
 
     return SingleChildScrollView(
       child: Container(
@@ -111,10 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10.0,
             ),
-            const TaskCard(),
-            const TaskCard(),
-            const TaskCard(),
-            const TaskCard(),
+            Column(
+              children: taskList
+                  .map((task) => TaskCard(
+                        title: task?.name,
+                        subtitle: '59625',
+                        isDone: task?.isDone,
+                      ))
+                  .toList(),
+            )
           ],
         ),
       ),

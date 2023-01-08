@@ -12,6 +12,7 @@ const getTasks = async (req, res) => {
       data: tasks,
       message: 'Fetch All Tasks',
     });
+    console.log('Fetch all tasks');
   } catch (error) {
     res.status(400).json({
       data: null,
@@ -120,17 +121,20 @@ const createTask = async (req, res) => {
         data: savedTask,
         message: 'Create New Task',
       });
+      console.log('Create New Task');
     } else {
       res.status(404).json({
         data: null,
         message: 'Invalid ProjectId',
       });
+      console.log('Invalid ProjectId');
     }
   } catch (error) {
     res.status(400).json({
       data: null,
       message: error.message,
     });
+    console.log(error.message);
   }
 };
 
