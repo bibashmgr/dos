@@ -4,8 +4,8 @@ class Token {
     required this.message,
   });
 
-  String data;
-  String message;
+  String? data;
+  String? message;
 
   factory Token.fromJson(Map<String, dynamic> json) => Token(
         data: json["data"],

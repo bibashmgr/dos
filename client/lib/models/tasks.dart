@@ -29,18 +29,18 @@ class Datum {
     required this.v,
   });
 
-  String id;
-  String name;
-  String projectId;
-  String userId;
-  DateTime issueDate;
-  String issueTime;
-  String dueTime;
-  bool isDone;
-  bool isNotify;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? name;
+  String? projectId;
+  String? userId;
+  DateTime? issueDate;
+  String? issueTime;
+  String? dueTime;
+  bool? isDone;
+  bool? isNotify;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["_id"],

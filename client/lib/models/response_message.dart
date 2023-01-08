@@ -5,7 +5,7 @@ class ResponseMessage {
   });
 
   dynamic data;
-  String message;
+  String? message;
 
   factory ResponseMessage.fromJson(Map<String, dynamic> json) =>
       ResponseMessage(

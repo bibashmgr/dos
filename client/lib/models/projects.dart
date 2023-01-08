@@ -5,7 +5,7 @@ class Projects {
   });
 
   List<Datum> data;
-  String message;
+  String? message;
 
   factory Projects.fromJson(Map<String, dynamic> json) => Projects(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -26,15 +26,15 @@ class Datum {
     required this.v,
   });
 
-  String id;
-  String name;
-  String desc;
-  String userId;
-  String icon;
-  String color;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? name;
+  String? desc;
+  String? userId;
+  String? icon;
+  String? color;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["_id"],

@@ -5,7 +5,7 @@ class User {
   });
 
   Data data;
-  String message;
+  String? message;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         data: Data.fromJson(json["data"]),
@@ -24,13 +24,13 @@ class Data {
     required this.v,
   });
 
-  String id;
-  String name;
-  String email;
-  String avatar;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? name;
+  String? email;
+  String? avatar;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["_id"],

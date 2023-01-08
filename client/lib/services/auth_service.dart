@@ -27,7 +27,7 @@ class AuthService {
 
     if (response.statusCode == 200) {
       Token loginInfo = Token.fromJson(jsonDecode(response.body));
-      prefs.setString('token', loginInfo.data);
+      prefs.setString('token', loginInfo.data ?? '');
       print(loginInfo.message);
     } else {
       ResponseMessage error = ResponseMessage.fromJson(
